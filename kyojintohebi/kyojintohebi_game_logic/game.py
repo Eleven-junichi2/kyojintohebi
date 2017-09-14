@@ -38,15 +38,15 @@ class Game:
                                           self.game_player.game_player_list["id"][p_id]["name"]
                                           )
 
-    def select_player_turn(self, p_1_id, p_2_id):
+    def select_player_turn(self, selecter_p_id, p_2_id):
         print("進める順番を決めてください")
         get_input = game_msg.selection_request({"入力": "ランダム", "1": " 1バン", "2": " 2バン"})
         if get_input == "1":
-            self.game_player.set_turn_num(p_1_id, 1)
+            self.game_player.set_turn_num(selecter_p_id, 1)
         elif get_input == "2":
-            self.game_player.set_turn_num(p_2_id, 2)
+            self.game_player.set_turn_num(selecter_p_id, 2)
         else:
-            self.game_player.set_turn_num(random.randint(p_1_id, p_2_id), random.randint(1, 2))
+            self.game_player.set_turn_num(random.randint(selecter_p_id, p_2_id), random.randint(1, 2))
 
     def run(self):
         self.select_player_turn(1, 2)
