@@ -11,23 +11,21 @@ class GamePlayerList:
 
     def get_game_player_list(self):
         return self.__game_player_list
-    
-    game_player_list = property(fget = get_game_player_list)
+
+    game_player_list = property(fget=get_game_player_list)
 
 
-    def add_player(self, id):
-        self.game_player_list["id"].update({id: {
+    def add_player(self, player_id):
+        self.game_player_list["id"].update({player_id: {
             "name": "",
-            "turn_num": id,
+            "turn_num": player_id,
             "piece": {
                 "king": "",
                 "foot_print": "",
-                "spawn_point": 
-                     {1: {"x": 0, "y": 0},
-                      2: {"x": 0, "y": 0}}
+                "spawn_point": {1: {"x": 0, "y": 0},2: {"x": 0, "y": 0}}
                 }
             }
-        })
+                                           })
 
     def exchange_turn_num(self, p1_id, p2_id):
         p1_turn_num = self.game_player_list["id"][p1_id]["turn_num"]
@@ -36,12 +34,12 @@ class GamePlayerList:
         self.game_player_list["id"][p2_id]["turn_num"] = p1_turn_num
 
 
-    def set_turn_num(self, id, turn_num):
+    def set_turn_num(self, player_id, turn_num):
         for p_id in self.get_id_list():
             if self.game_player_list["id"][p_id]["turn_num"] == turn_num:
-                self.game_player_list["id"][p_id]["turn_num"] = self.game_player_list["id"][id]["turn_num"]
+                self.game_player_list["id"][p_id]["turn_num"] = self.game_player_list["id"][player_id]["turn_num"]
                 break
-        self.game_player_list["id"][id]["turn_num"] = turn_num
+        self.game_player_list["id"][player_id]["turn_num"] = turn_num
 
     def get_turn_num_in_player(self):
         """
@@ -57,8 +55,14 @@ class GamePlayerList:
     def get_turn_num_list(self):
         return list(self.get_turn_num_in_player().keys())
 
-    def set_name(self, id, name):
-        self.game_player_list["id"][id]["name"] = name
+    def sort_turn_num(self):
+        turn_num_list = self.get_turn_num_list()
+        turn_num_list.sort()
+        for p_id, turn_num in zip(self.get_id_list(), turn_num_list):
+            self.game_player_list["id"][p_id]["turn_num"] = turn_num
+
+    def set_name(self, player_id, name):
+        self.game_player_list["id"][player_id]["name"] = name
 
     def set_piece(self, id, piece_type, piece):
         if not piece_type == "spawn_point":
@@ -85,7 +89,9 @@ if __name__ == "__main__":
     game_player.set_name(1, "junichi")
     game_player.add_player(2)
     game_player.set_name(2, "yuma")
-    game_player.exchange_turn_num(1, 2)
-    game_player.set_turn_num(2, 2)
-
+    game_player.add_player(3)
+    game_player.set_name(3, "python")
+    game_player.exchange_turn_num(1, 3)
+    print(game_player.get_turn_num_in_player())
+    game_player.sort_turn_num()
     print(game_player.get_turn_num_in_player())

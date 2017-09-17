@@ -8,7 +8,7 @@ Created on 07/25/2017 JTS
 class GameStage(object):
     """ボードゲームの盤(stage)のオブジェクトです。
     """
-    def __init__(self, x = 2, y = 2, empty_square = "__"):
+    def __init__(self, x=2, y=2, empty_square="__"):
         """初期化メソッドです。
 
         Args:
@@ -25,7 +25,7 @@ class GameStage(object):
     def get_stage_squares(self):
         return self.__stage_squares
 
-    stage_squares = property(fget = get_stage_squares)
+    stage_squares = property(fget=get_stage_squares)
 
     def get_empty_square(self):
         return self.__empty_square
@@ -41,7 +41,7 @@ class GameStage(object):
     def get_stage_length(self):
         return self.__stage_length
 
-    stage_length = property(fget = get_stage_length)
+    stage_length = property(fget=get_stage_length)
 
     def put_piece(self, x, y, piece, player):
         """この関数は stage_squaresアトリビュート の指定された要素に piece と player を代入します。
@@ -66,7 +66,7 @@ class GameStage(object):
         self.stage_squares[y][x] = {"piece": self.empty_square, "player": "0"}
 
     def move_piece(self, x, y, moving_num_x = 0, moving_num_y = 0, foot_print: "移動跡に置く駒を設定できます" = ""):
-        """
+        """ステージの指定された駒を移動します
         """
         self.put_piece(x + moving_num_x, y + moving_num_y, self.stage_squares[y][x]["piece"], self.stage_squares[y][x]["player"])
         if not foot_print:
@@ -78,7 +78,7 @@ class GameStage(object):
 
         Returns:
             dictionary:
-            
+
         """
         if self.stage_squares[y][x]["piece"] == self.empty_square:
             piece = None
@@ -100,7 +100,7 @@ def main():
     """
     モジュールを直接実行した際のエントリポイントです。
     """
-    game_stage = Stage(8, 8, empty_square='__')
+    game_stage = GameStage(8, 8, empty_square='__')
     game_stage.put_piece(2, 2, "1p", "1")
     game_stage.show_stage()
     game_stage.move_piece(2, 2, 1)

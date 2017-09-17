@@ -5,8 +5,8 @@ Created on Sat 08/26/2017
 @Author: Junichi Suetsugu (末次 淳一)
 """
 
-def selection_request(message = {"Enter": "Next"}, prompt = ">>> "):
-    """
+def selection_request(message={"Enter": "Next"}, prompt=">>> "):
+    """選択メッセージを表示します
     """
     selection_request_message = []
     message = message.items()
@@ -15,8 +15,7 @@ def selection_request(message = {"Enter": "Next"}, prompt = ">>> "):
         selection_request_message.append(":")
         selection_request_message.append(i[1])
         selection_request_message.append(" ")
-    else:
-        selection_request_message.pop()
+    selection_request_message.pop()
     print("".join(selection_request_message))
     select = input(prompt)
     return select
