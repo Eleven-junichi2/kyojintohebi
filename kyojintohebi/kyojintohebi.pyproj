@@ -25,7 +25,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="appsetup.py">
+    <Compile Include="appsetup_x.py" />
+    <Compile Include="appsetup_win.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="kyojintohebi_game_logic\dice.py">
@@ -44,9 +45,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="kyojintohebi_game_logic\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="__main__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
