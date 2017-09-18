@@ -1,0 +1,9 @@
+bdist_dmg
+os
+__all__
+normalize_to_list
+bdist_mac
+Command
+stat
+plistlib
+subprocess

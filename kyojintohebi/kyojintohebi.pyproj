@@ -4,14 +4,15 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0243f8f3-bec5-4a2f-9567-06ee1f2c9cd5</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>kyojintohebi_game_logic\game.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>kyojintohebi</Name>
     <RootNamespace>kyojintohebi</RootNamespace>
-    <InterpreterId>Global|PythonCore|3.6-32</InterpreterId>
+    <InterpreterId>MSBuild|python_release_program_env|$(MSBuildProjectFullPath)</InterpreterId>
     <IsWindowsApplication>False</IsWindowsApplication>
     <PublishUrl>C:\Users\HiSpecJIJI_junichi2\Desktop\オリジナルアプリケーション\python</PublishUrl>
   </PropertyGroup>
@@ -24,6 +25,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="appsetup.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="kyojintohebi_game_logic\dice.py">
       <SubType>Code</SubType>
     </Compile>
@@ -36,10 +40,13 @@
     <Compile Include="kyojintohebi_game_logic\gamestage.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="kyojintohebi_game_logic\game.py">
+    <Compile Include="game.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="kyojintohebi_game_logic\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__main__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -48,6 +55,17 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.6-32" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="python_release_program_env\">
+      <Id>python_release_program_env</Id>
+      <Version>3.6</Version>
+      <Description>python_release_program_env (Python 3.6 (32-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X86</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

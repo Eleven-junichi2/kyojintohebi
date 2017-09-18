@@ -1,0 +1,16 @@
+sys
+DllUnregisterServer
+os
+IPersistFile_Methods
+winerror
+IExtractIcon_Methods
+shell
+glob
+win32gui
+DllRegisterServer
+ico_files
+pythoncom
+win32con
+random
+register
+ShellExtension
