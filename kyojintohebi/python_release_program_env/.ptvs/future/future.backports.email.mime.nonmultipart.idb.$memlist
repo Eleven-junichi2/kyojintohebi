@@ -1,7 +1,0 @@
-MIMEBase
-absolute_import
-__all__
-unicode_literals
-division
-MIMENonMultipart
-errors

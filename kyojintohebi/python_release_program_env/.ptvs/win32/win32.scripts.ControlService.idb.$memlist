@@ -1,8 +1,0 @@
-win32ui
-win32con
-machine
-dialog
-win32service
-ServiceDlg
-sys
-StartupDlg

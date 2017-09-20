@@ -1,8 +1,0 @@
-msilib
-index
-os
-__all__
-distutils
-bdist_msi
-info
-sequence

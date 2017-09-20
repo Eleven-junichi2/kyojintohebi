@@ -4,15 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0243f8f3-bec5-4a2f-9567-06ee1f2c9cd5</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>game.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>kyojintohebi</Name>
     <RootNamespace>kyojintohebi</RootNamespace>
-    <InterpreterId>MSBuild|python_release_program_env|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>Global|PythonCore|3.6-32</InterpreterId>
     <IsWindowsApplication>False</IsWindowsApplication>
     <PublishUrl>C:\Users\HiSpecJIJI_junichi2\Desktop\オリジナルアプリケーション\python</PublishUrl>
   </PropertyGroup>
@@ -50,20 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="kyojintohebi_game_logic\" />
+    <Folder Include="release_to_excutable_file\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.6-32" />
-  </ItemGroup>
-  <ItemGroup>
-    <Interpreter Include="python_release_program_env\">
-      <Id>python_release_program_env</Id>
-      <Version>3.6</Version>
-      <Description>python_release_program_env (Python 3.6 (32-bit))</Description>
-      <InterpreterPath>Scripts\python.exe</InterpreterPath>
-      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
-      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X86</Architecture>
-    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

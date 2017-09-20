@@ -1,8 +1,0 @@
-copy
-BaseQuery
-win32api
-win32pdh
-Query
-QueryError
-time
-_thread

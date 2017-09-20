@@ -13,4 +13,4 @@ setup(  name = "Kyojintohebi",
         version = "0.5",
         description = "kyojintohebi",
         author = "Junichi Suetsugu",
-        executables = [Executable("game.py", copyright="Junichi Suetsugu")])
+        executables = [Executable("game.py", base=base)])

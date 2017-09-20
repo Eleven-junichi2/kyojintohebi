@@ -1,7 +1,0 @@
-__all__
-unicode_literals
-division
-MIMENonMultipart
-encode_7or8bit
-absolute_import
-MIMEText

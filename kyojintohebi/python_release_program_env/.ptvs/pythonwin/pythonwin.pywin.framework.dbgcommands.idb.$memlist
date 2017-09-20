@@ -1,7 +1,0 @@
-DebuggerCommandHandler
-win32ui
-win32con
-warnings
-IdToBarNames
-scriptutils
-CScintillaEditInterface

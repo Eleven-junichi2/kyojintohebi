@@ -65,8 +65,15 @@ class GameStage(object):
         """
         self.stage_squares[y][x] = {"piece": self.empty_square, "player": "0"}
 
-    def move_piece(self, x, y, moving_num_x = 0, moving_num_y = 0, foot_print: "移動跡に置く駒を設定できます" = ""):
+    def move_piece(self, x, y, moving_num_x = 0, moving_num_y = 0, foot_print = ""):
         """ステージの指定された駒を移動します
+
+        Args:
+            x(int):
+            y(int):
+            moving_num_x(int):
+            moving_num_y(int):
+            foot_print(str): 移動の跡ができます。空の場合は移動の跡はできません。
         """
         self.put_piece(x + moving_num_x, y + moving_num_y, self.stage_squares[y][x]["piece"], self.stage_squares[y][x]["player"])
         if not foot_print:

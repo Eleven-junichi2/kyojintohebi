@@ -1,8 +1,0 @@
-absolute_import
-imghdr
-unicode_literals
-division
-MIMENonMultipart
-MIMEImage
-__all__
-encoders

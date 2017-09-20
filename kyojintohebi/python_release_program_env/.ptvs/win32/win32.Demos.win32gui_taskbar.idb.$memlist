@@ -1,8 +1,0 @@
-os
-win32api
-main
-winerror
-win32gui
-MainWindow
-win32con
-sys

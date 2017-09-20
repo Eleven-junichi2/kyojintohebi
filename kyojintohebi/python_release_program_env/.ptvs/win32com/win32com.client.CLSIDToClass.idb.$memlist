@@ -1,5 +1,0 @@
-RegisterCLSID
-HasClass
-RegisterCLSIDsFromDict
-GetClass
-mapCLSIDToClass

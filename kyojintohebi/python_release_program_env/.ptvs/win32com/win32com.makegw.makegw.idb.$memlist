@@ -1,8 +1,0 @@
-_write_gw_h
-_write_ifc_cpp
-test
-_write_ifc_h
-makegwparse
-_write_gw_cpp
-re
-make_framework_support

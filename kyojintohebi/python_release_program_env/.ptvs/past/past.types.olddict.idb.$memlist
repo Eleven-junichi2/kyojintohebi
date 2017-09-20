@@ -1,7 +1,0 @@
-__all__
-ver
-_builtin_dict
-with_metaclass
-BaseOldDict
-olddict
-sys
