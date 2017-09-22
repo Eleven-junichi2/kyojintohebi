@@ -83,6 +83,11 @@ class GamePlayerList:
     def get_spawn_point_num_list(self, id):
         return list(self.game_player_list["id"][id]["piece"]["spawn_point"].keys())
 
+    def get_name_player_id(self, name):
+        for player_id in self.get_id_list():
+            if self.game_player_list["id"][player_id]["name"] == name:
+                return player_id
+
 if __name__ == "__main__":
     game_player = GamePlayerList()
     game_player.add_player(1)

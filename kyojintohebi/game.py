@@ -83,12 +83,12 @@ class Game:
                 if self.game_turn == 1:
                     print("最初のターンなので、サイコロを2回ふって出た数の合計になります")
                     game_msg.selection_request({"入力": "続ける"})
-                    self.piece_move_num_limit = dice.dice(2)
+                    piece_move_num_limit = dice.dice(2)
                 else:
                     print("サイコロをふって決めます")
                     game_msg.selection_request({"入力": "続ける"})
-                    self.piece_move_num_limit = dice.dice(1)
-                print("合計:{}".format(self.piece_move_num_limit))
+                    piece_move_num_limit = dice.dice(1)
+                print("合計:{}".format(piece_move_num_limit))
                 game_msg.selection_request({"入力": "続ける"})
                 while 1:
                     os.system("cls")
@@ -119,45 +119,52 @@ class Game:
                                 if get_piece_data["player"] == self.game_player.game_player_list["id"][c_turn_p_id]["name"]:
                                     piece_x = get_x
                                     piece_y = get_y
-                                    piece_move_log = {"x": [], "y": [], "latest": {"x": 0, "y": 0}}
                                     while 1:
                                         os.system("cls")
                                         self.show_game_status(c_turn_p_id)
                                         flag_move = False
-                                        print("残りの移動できる数:{0}".format(self.piece_move_num_limit))
+                                        print("残りの移動できる数:{0}".format(piece_move_num_limit))
                                         get_input = game_msg.selection_request({"w": "↑", "a": "←", "s": "↓", "d": "→", "c": "やめる"})
                                         if get_input == "c":
                                             break
                                         elif get_input == "w" and piece_y > 0:
+                                            get_piece_data = self.game_stage.what_is_piece(piece_x, piece_y-1)
                                             self.game_stage.move_piece(piece_x, piece_y,
                                                                        0, -1,
                                                                        self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
                                             piece_y = piece_y - 1
                                             flag_move = True
                                         elif get_input == "a" and piece_x > 0:
+                                            get_piece_data = self.game_stage.what_is_piece(piece_x-1, piece_y)
                                             self.game_stage.move_piece(piece_x, piece_y,
                                                                        -1, 0,
                                                                        self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
                                             piece_x = piece_x - 1
                                             flag_move = True
                                         elif get_input == "s" and piece_y < self.game_stage.get_stage_length()["y"]-1:
+                                            get_piece_data = self.game_stage.what_is_piece(piece_x, piece_y+1)
                                             self.game_stage.move_piece(piece_x, piece_y,
                                                                        0, 1,
                                                                        self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
                                             piece_y = piece_y + 1
                                             flag_move = True
                                         elif get_input == "d" and piece_x < self.game_stage.get_stage_length()["x"]-1:
+                                            get_piece_data = self.game_stage.what_is_piece(piece_x+1, piece_y)
                                             self.game_stage.move_piece(piece_x, piece_y,
                                                                        1, 0,
                                                                        self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
                                             piece_x = piece_x + 1
                                             flag_move = True
                                         if flag_move:
-                                            piece_move_log["x"].append(piece_x)
-                                            piece_move_log["y"].append(piece_y)
-                                        if piece_move_log["x"][-1]:
-                                            print("移動できません")
-                                            game_msg.selection_request({"入力": "続ける"})
+                                            piece_move_num_limit = piece_move_num_limit - 1
+                                            if get_piece_data:
+                                                if not get_piece_data["player"] == self.game_player.game_player_list["id"][c_turn_p_id]["name"]:
+                                                    enemy_piece_p_id = self.game_player.get_name_player_id(get_piece_data["player"])
+                                                    if get_piece_data["king"] == self.game_player.game_player_list["id"][enemy_piece_p_id]["piece"]["king"]:
+                                                        print("---{0}が操作しています---".format(get_piece_data["name"]))
+                                                        print("---復活させる場所を選んでください---")
+                                                        game_msg.selection_request({"1": "ヨコ:{0} タテ:{1}".format(self.game_player.game_player_list["id"][enemy_piece_p_id]["piece"]["spawn_point"][1],
+                                                                                                                    self.game_player.game_player_list["id"][enemy_piece_p_id]["piece"]["spawn_point"][2])})
                             else:
                                 print("コマがありません")
                                 game_msg.selection_request({"入力": "続ける"})
