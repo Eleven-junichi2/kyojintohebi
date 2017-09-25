@@ -88,10 +88,9 @@ class GameStage(object):
 
         """
         if self.stage_squares[y][x]["piece"] == self.empty_square:
-            piece = None
+            return None
         else:
-            piece = self.stage_squares[y][x]
-        return piece
+            return self.stage_squares[y][x]
 
     def show_stage(self, delimiter = "|"):
         """stage_squaresアトリビュート を整形して表示します

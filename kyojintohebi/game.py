@@ -122,49 +122,46 @@ class Game:
                                     while 1:
                                         os.system("cls")
                                         self.show_game_status(c_turn_p_id)
+                                        piece_move_num_x = 0
+                                        piece_move_num_y = 0
                                         flag_move = False
                                         print("残りの移動できる数:{0}".format(piece_move_num_limit))
                                         get_input = game_msg.selection_request({"w": "↑", "a": "←", "s": "↓", "d": "→", "c": "やめる"})
                                         if get_input == "c":
                                             break
                                         elif get_input == "w" and piece_y > 0:
-                                            get_piece_data = self.game_stage.what_is_piece(piece_x, piece_y-1)
-                                            self.game_stage.move_piece(piece_x, piece_y,
-                                                                       0, -1,
-                                                                       self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
-                                            piece_y = piece_y - 1
+                                            piece_move_num_y = -1
                                             flag_move = True
                                         elif get_input == "a" and piece_x > 0:
-                                            get_piece_data = self.game_stage.what_is_piece(piece_x-1, piece_y)
-                                            self.game_stage.move_piece(piece_x, piece_y,
-                                                                       -1, 0,
-                                                                       self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
-                                            piece_x = piece_x - 1
+                                            piece_move_num_x = -1
                                             flag_move = True
                                         elif get_input == "s" and piece_y < self.game_stage.get_stage_length()["y"]-1:
-                                            get_piece_data = self.game_stage.what_is_piece(piece_x, piece_y+1)
-                                            self.game_stage.move_piece(piece_x, piece_y,
-                                                                       0, 1,
-                                                                       self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
-                                            piece_y = piece_y + 1
+                                            piece_move_num_y = 1
                                             flag_move = True
                                         elif get_input == "d" and piece_x < self.game_stage.get_stage_length()["x"]-1:
-                                            get_piece_data = self.game_stage.what_is_piece(piece_x+1, piece_y)
-                                            self.game_stage.move_piece(piece_x, piece_y,
-                                                                       1, 0,
-                                                                       self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
-                                            piece_x = piece_x + 1
+                                            piece_move_num_x = 1
                                             flag_move = True
                                         if flag_move:
                                             piece_move_num_limit = piece_move_num_limit - 1
+                                            get_piece_data = self.game_stage.what_is_piece(piece_x+piece_move_num_x,
+                                                                                           piece_y+piece_move_num_y)
                                             if get_piece_data:
                                                 if not get_piece_data["player"] == self.game_player.game_player_list["id"][c_turn_p_id]["name"]:
-                                                    enemy_piece_p_id = self.game_player.get_name_player_id(get_piece_data["player"])
-                                                    if get_piece_data["king"] == self.game_player.game_player_list["id"][enemy_piece_p_id]["piece"]["king"]:
-                                                        print("---{0}が操作しています---".format(get_piece_data["name"]))
-                                                        print("---復活させる場所を選んでください---")
-                                                        game_msg.selection_request({"1": "ヨコ:{0} タテ:{1}".format(self.game_player.game_player_list["id"][enemy_piece_p_id]["piece"]["spawn_point"][1],
-                                                                                                                    self.game_player.game_player_list["id"][enemy_piece_p_id]["piece"]["spawn_point"][2])})
+                                                    enemy_p_id = self.game_player.get_name_player_id(get_piece_data["player"])
+                                                    print("---{0}が操作しています---".format(self.game_player.game_player_list["id"][enemy_p_id]["name"]))
+                                                    print("コマが取られます。復活させる場所を選んでください")
+                                                    #if self.game_stage.what_is_piece(self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][1]["x"])
+                                                    get_input = game_msg.selection_request({"1": "ヨコ{0}, タテ{1}".format(self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][1]["x"],
+                                                                                                                             self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][1]["x"]),
+                                                                                            "2": "ヨコ{0}, タテ{1}".format(self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][2]["x"],
+                                                                                                                             self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][2]["x"])
+                                                                                           })
+                                            self.game_stage.move_piece(piece_x, piece_y,
+                                                                       piece_move_num_x, piece_move_num_y,
+                                                                       self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
+                                            piece_x += piece_move_num_x
+                                            piece_y += piece_move_num_y
+
                             else:
                                 print("コマがありません")
                                 game_msg.selection_request({"入力": "続ける"})
