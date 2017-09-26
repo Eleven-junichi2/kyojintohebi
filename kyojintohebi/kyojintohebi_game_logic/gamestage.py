@@ -74,12 +74,18 @@ class GameStage(object):
             moving_num_x(int):
             moving_num_y(int):
             foot_print(str): 移動の跡ができます。空の場合は移動の跡はできません。
+
+        Returns:
+            dictionary: 移動先にある駒のデータを返します。
         """
+        d_piece_data = self.what_is_piece(x+moving_num_x, y+moving_num_y)
         self.put_piece(x + moving_num_x, y + moving_num_y, self.stage_squares[y][x]["piece"], self.stage_squares[y][x]["player"])
         if not foot_print:
             self.del_piece(x, y)
         elif foot_print:
             self.put_piece(x, y, foot_print, self.stage_squares[y + moving_num_y][x + moving_num_x]["player"])
+        return d_piece_data
+
     def what_is_piece(self, x, y):
         """この関数は stage_squaresアトリビュート の指定された要素を返します。
 
@@ -90,7 +96,7 @@ class GameStage(object):
         if self.stage_squares[y][x]["piece"] == self.empty_square:
             return None
         else:
-            return self.stage_squares[y][x]
+            return dict(self.stage_squares[y][x])
 
     def show_stage(self, delimiter = "|"):
         """stage_squaresアトリビュート を整形して表示します

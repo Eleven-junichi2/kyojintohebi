@@ -116,7 +116,9 @@ class Game:
                             if get_piece_data:
                                 print("コマ: {0} プレイヤー: {1}".format(get_piece_data["piece"], get_piece_data["player"]))
                                 game_msg.selection_request({"入力": "続ける"})
-                                if get_piece_data["player"] == self.game_player.game_player_list["id"][c_turn_p_id]["name"]:
+                                if (get_piece_data["player"] == self.game_player.game_player_list["id"][c_turn_p_id]["name"] and
+                                    get_piece_data["piece"] == self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["king"] and
+                                    piece_move_num_limit > 0):
                                     piece_x = get_x
                                     piece_y = get_y
                                     while 1:
@@ -143,22 +145,28 @@ class Game:
                                             flag_move = True
                                         if flag_move:
                                             piece_move_num_limit = piece_move_num_limit - 1
-                                            get_piece_data = self.game_stage.what_is_piece(piece_x+piece_move_num_x,
-                                                                                           piece_y+piece_move_num_y)
+                                            get_piece_data = self.game_stage.move_piece(piece_x, piece_y,
+                                                                                        piece_move_num_x, piece_move_num_y,
+                                                                                        self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
+                                            os.system("cls")
+                                            self.show_game_status(c_turn_p_id)
                                             if get_piece_data:
-                                                if not get_piece_data["player"] == self.game_player.game_player_list["id"][c_turn_p_id]["name"]:
-                                                    enemy_p_id = self.game_player.get_name_player_id(get_piece_data["player"])
-                                                    print("---{0}が操作しています---".format(self.game_player.game_player_list["id"][enemy_p_id]["name"]))
-                                                    print("コマが取られます。復活させる場所を選んでください")
-                                                    #if self.game_stage.what_is_piece(self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][1]["x"])
-                                                    get_input = game_msg.selection_request({"1": "ヨコ{0}, タテ{1}".format(self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][1]["x"],
-                                                                                                                             self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][1]["x"]),
-                                                                                            "2": "ヨコ{0}, タテ{1}".format(self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][2]["x"],
-                                                                                                                             self.game_player.game_player_list["id"][enemy_p_id]["piece"]["spawn_point"][2]["x"])
-                                                                                           })
-                                            self.game_stage.move_piece(piece_x, piece_y,
-                                                                       piece_move_num_x, piece_move_num_y,
-                                                                       self.game_player.game_player_list["id"][c_turn_p_id]["piece"]["foot_print"])
+                                                other_p_id = self.game_player.get_name_player_id(get_piece_data["player"])
+                                                if not other_p_id == c_turn_p_id:
+                                                    spawn_point_piece = {1: self.game_stage.what_is_piece(self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][1]["x"],
+                                                                                                          self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][1]["y"]),
+                                                                         2: self.game_stage.what_is_piece(self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][2]["x"],
+                                                                                                          self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][2]["y"])}
+                                                    if get_piece_data == spawn_point_piece[1]:
+                                                        self.game_stage.put_piece(self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][2]["x"],
+                                                                                  self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][2]["y"],
+                                                                                  self.game_player.game_player_list["id"][other_p_id]["piece"]["king"],
+                                                                                  self.game_player.game_player_list["id"][other_p_id]["name"])
+                                                    elif get_piece_data == spawn_point_piece[2]:
+                                                        self.game_stage.put_piece(self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][1]["x"],
+                                                                                  self.game_player.game_player_list["id"][other_p_id]["piece"]["spawn_point"][1]["y"],
+                                                                                  self.game_player.game_player_list["id"][other_p_id]["piece"]["king"],
+                                                                                  self.game_player.game_player_list["id"][other_p_id]["name"])
                                             piece_x += piece_move_num_x
                                             piece_y += piece_move_num_y
 
